@@ -1,0 +1,346 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLTT</title>
+    <link rel="stylesheet" href="{% static 'css/trangchu.css'%}">
+    <link rel="stylesheet" href="{% static 'css/trangQuanLyGV.css'%}">
+    <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* CSS styling */
+        figure {
+            margin: 0; /* Loại bỏ margin mặc định của thẻ figure */
+            padding: 0; /* Loại bỏ padding mặc định của thẻ figure */
+            text-align: center; /* Canh giữa nội dung trong thẻ figure */
+        }
+        figcaption {
+            font-style: italic; /* Có thể sử dụng font-style: italic để làm nổi bật mô tả */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container_wrap">
+        <!-- header -->
+        <div id="header_component">
+            <script type="module" src="{% static 'javascript/components/Header.js'%}"></script>
+        </div>
+
+        <div class="container_body">
+            <div id="menu_component">
+                <script type="module" src="{% static 'javascript/components/Menu.js'%}"></script>
+            </div>
+
+            <div class="content_body">
+
+                <div class="render_body container_table_ql">
+                    <div class="line_title">
+                        <div class="title_hd1">QUẢN LÝ GIẢNG VIÊN</div>
+                        <div>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+                                <i class="fa-solid fa-plus"></i>
+                                Thêm Giảng viên
+                            </button>
+                        </div>
+                    </div>
+                    <div class="line_filter">
+                        <input type="text" placeholder="Tìm theo mã giảng viên" />
+                        <button>
+                            <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <div class="table_body">
+
+                        <table border="0">
+                            <tr>
+                                <th>STT</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>SĐT</th>
+                                <th>Nơi sinh</th>
+                                <th>Email</th>
+                                <th>Khoa</th>
+                                <th>Học vị</th>
+                                <th>Chức vụ</th>
+                                <th>Tình trạng</th>
+                                <th>Action</th>
+
+
+                            </tr>
+                            <tbody>
+
+                                {% for instructor in instructor_list %}
+                                <tr>
+                                    <td class="instructor-id" >{{ forloop.counter }}</td>
+                                    <td>{{ instructor.instructorID }}</td>
+                                    <td>{{ instructor.name }}</td>
+                                    <td>{{ instructor.gender }}</td>
+                                    <td>{{ instructor.date_of_birth|date:"Y-m-d"  }}</td>
+                                    <td>{{ instructor.phone }}</td>
+                                    <td>{{ instructor.place_of_birth }}</td>
+                                    <td>{{ instructor.email }}</td>
+                                    <td>{{ instructor.department }}</td>
+                                    <td>{{ instructor.education_level }}</td>
+                                    <td>{{ instructor.job_position }}</td>
+                                    <td>{{ instructor.status }}</td>
+                                    <td><button class="edit-button" data-instructor-id="{{ instructor.instructorID }}" data-bs-toggle="modal" data-bs-target="#myModal-chitiet"><i class="fas fa-pen"></i></button></td>
+                                    
+                                </tr>
+                                {% endfor %}
+
+                                <!-- map row -->
+                            </tbody>
+
+                        </table>
+
+
+
+                        <!-- The Modal them giang vien-->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Thêm thông tin giảng viên</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">X</button>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form method="post" action="" class='form2'>
+                                            
+                                            {% csrf_token %}
+                                            <div class="mb-3 mt-3">
+                                                <label for="email">Avatar:</label>
+                                                <input type="file" class="form-control" id="avt" name="avt">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Tên:</label>
+                                                <input type="text" class="form-control" id="name_add" placeholder=""
+                                                    name="name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Giới tính:</label>
+                                               
+                                                    <select class="form-control" id="gender_add" name="gender">
+                                                        <option value="" disabled selected style="display:none;">Chọn giới tính</option>
+                                                        <option value="M">Nam</option>
+                                                        <option value="F">Nữ</option>
+                                                        <option value="O">Khác</option>
+                                                    </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Ngày sinh:</label>
+                                                <input type="date" class="form-control" id="birthdate_add" placeholder=""
+                                                    name="birthdate">
+                                            </div>
+                                        
+                                            <div class="mb-3">
+                                                <label for="pwd">SĐT:</label>
+                                                <input type="text" class="form-control" id="phone_add" placeholder=""
+                                                    name="phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Nơi sinh:</label>
+                                                <input type="text" class="form-control" id="placeoforigin_add" placeholder=""
+                                                    name="placeoforigin">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Email:</label>
+                                                <input type="email" class="form-control" id="email_add" placeholder=""
+                                                    name="email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Khoa:</label>
+                                                <select class="form-control" id="department_add" name="department">
+                                                    <option value="" disabled selected style="display:none;">Chọn khoa</option>
+                                                    {% for choice in department_choices %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select> 
+                                                
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Học vị:</label>
+                                                
+                                                <select class="form-control" id="education_add" name="education">
+                                                    <option value="" >Chọn học vị</option>
+                                                    {% for choice in education_choices %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select> 
+                                               
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Chức vụ:</label>
+                                                <select class="form-control" id="position_add" name="position">
+                                                    <option value="" >Chọn chức vụ</option>
+                                                    {% for choice in position_choices %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select> 
+                                              
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="pwd">Tình trạng:</label>
+                                                <select class="form-control" id="status_add" name="status">
+                                                    <option value="" >Chọn tình trạng</option>
+                                                    {% for choice in status_choices %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select> 
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="form2-submit">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    <!-- The Modal chi tiet-->
+    <div class="modal fade" id="myModal-chitiet">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông Tin Chi Tiết</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">X</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  
+                    <form method="POST" action="" class='form1'>
+                       
+                       
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="pwd">ID</label>
+                            <input type="text" class="form-control" id="instructorID_edit" name="ID" readonly>
+                        </div>
+                       
+                        <div class="mb-3">
+                            <label for="pwd">Tên</label>
+                            <input type="text" class="form-control" id="name_edit" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Giới tính</label>
+                            <select class="form-select" id="gender_edit" name="gender">
+                                <option value="M">Nam</option>
+                                <option value="F">Nữ</option>
+                                <option value="O">Khác</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Ngày sinh</label>
+                            <input type="date" class="form-control" id="birthdate_edit" name="birthdate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">SĐT</label>
+                            <input type="text" class="form-control" id="phonenumber_edit" name="phonenumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Nơi sinh</label>
+                            <input type="text" class="form-control" id="placeoforigin_edit" name="placeoforigin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Email</label>
+                            <input type="email" class="form-control" id="email_edit" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Khoa</label>
+                            <select class="form-control" id="department_edit" name="department">
+                                {% for choice in department_choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Học vị</label>
+                            <select class="form-control" id="education_edit" name="education">
+                                {% for choice in education_choices %}
+                                <option value="{{ choice.1 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select> 
+                        
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Chức vụ</label>
+                            <select class="form-control" id="position_edit" name="position">
+                                {% for choice in position_choices %}
+                                <option value="{{ choice.1 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            {% comment %} <input type="text" class="form-control" id="position_edit" name="position"> {% endcomment %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="pwd">Tình trạng</label>
+                            <select class="form-control" id="status_edit" name="status">
+                                {% for choice in status_choices %}
+                                <option value="{{ choice.1 }}">{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="form1-submit">Save</button>
+                        </div>
+                        <script src="{% static 'javascript/components/edit_model.js'%}"></script>
+                        
+        
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        var urls = {
+            home: "{% url 'home' %}",
+            instructor: "{% url 'instructor' %}",
+            {% comment %} studentManager: "{% url 'studentManager' %}",
+            thongKe: "{% url 'thongKe' %}" {% endcomment %}
+        };
+    </script>
+    
+
+
+
+</body>
+
+</html>

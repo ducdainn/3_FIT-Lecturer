@@ -1,0 +1,78 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0px;
+    background-color: #F9EAF9;
+    font-family:
+        -apple-system,
+        Segoe UI,
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif !important;
+}
+
+.container_table_ql > div {
+    margin: 10px 0px;
+}
+.line_title{
+    display: flex;
+    justify-content: space-between;
+}
+.title_hd1{
+    font-size: 25px;
+    font-weight: 700;
+    margin: 30px 0px;
+}
+.line_filter input{
+    width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #a7a6a6;
+    font-size: 14px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.table_body table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table_body th{
+    border: 1px solid #7a7a7a;
+    border-bottom-width: 2px;
+    padding: 13px 0px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.table_body td{
+    text-align: center;
+    font-size: 14px;
+    padding: 15px 5px;
+    border: 1px solid #7a7a7a;
+}
+
+ /* button */
+.container_table_ql  button{
+    padding:2px 6px;
+    background: #2180F8;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+.line_title  button{
+    padding:5px 10px;
+    background: #2180F8;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 0px 10px;
+    cursor: pointer;
+    margin: 35px 0px;
+}
+#btn_delete{
+    background-color: #bc1b1b;
+}

@@ -1,0 +1,113 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QLTT</title>
+    <link rel="stylesheet" href='{% static "css/trangchu.css"%}'>
+    <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css'%}">
+  
+</head>
+
+
+<body>
+    
+    <div class="container">
+
+        <!-- header -->
+        <div id="header_component">
+            <script type="module" src="{% static 'javascript/components/Header.js'%}"></script>
+        </div>
+        <div class="container_body">
+            <!-- menu -->
+            <div id="menu_component">
+                <script type="module" src="{% static 'javascript/components/Menu.js'%}"></script>
+            </div>
+            <div class="content_body">
+                <div class="render_box_total">
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-people-pants-simple"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{{instructor_count}}</div>
+                            <div class="text_nb">Total Instructor</div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-circle-up"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{{department_count}}</div>
+                            <div class="text_nb">Total Department</div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{}</div>
+                            <div class="text_nb">Total Department</div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{}</div>
+                            <div class="text_nb">Total Instructor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="render_body">
+                    <h1>REPORT</h1>
+                    <canvas id="myChart" width="300" height="150"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Red', 'Blue', 'Yellow'],
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [12, 19, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var urls = {
+            home: "{% url 'home' %}",
+            instructor: "{% url 'instructor' %}",
+            {% comment %} studentManager: "{% url 'studentManager' %}",
+            thongKe: "{% url 'thongKe' %}" {% endcomment %}
+        };
+    </script>
+    
+  
+</body>
+
+</html>
