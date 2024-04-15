@@ -11,7 +11,7 @@ class Department(models.Model):
     
 class Instructor(models.Model):
     image =models.ImageField(upload_to='images/')
-    instructorID = models.CharField(max_length=5, primary_key=True, editable=False)
+    instructorID = models.CharField(max_length=7, primary_key=True, editable=False)
     name = models.CharField(max_length=100)
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -71,14 +71,14 @@ class Instructor(models.Model):
         count = Instructor.objects.count()
     # Kiểm tra nếu không có Instructor nào tồn tại
         if count == 0:
-            return f"{prefix}001"
+            return f"{prefix}00001"
     # Tạo ID dựa trên số lượng hiện tại
-        next_id = f"{prefix}{count+1:03}"
+        next_id = f"{prefix}{count+1:05}"
     # Kiểm tra nếu ID đã tồn tại
         while Instructor.objects.filter(instructorID=next_id).exists():
         # Tăng biến đếm và tạo lại ID
             count += 1
-            next_id = f"{prefix}{count+1:03}"
+            next_id = f"{prefix}{count+1:05}"
         return next_id
 
     def __str__(self):

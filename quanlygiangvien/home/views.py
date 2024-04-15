@@ -3,9 +3,10 @@ from django.contrib.auth import authenticate, login, decorators
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Instructor, Department
-
+from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
 
 def display_message(request):
     # Truyền thông báo vào template để hiển thị
@@ -36,6 +37,7 @@ class HomeClass(LoginRequiredMixin, View):
 
 class InstructorView(LoginRequiredMixin, View):
     login_url = '/login/'
+     
     
     def get(self, request):
         instructor_list = Instructor.objects.all()
@@ -45,7 +47,11 @@ class InstructorView(LoginRequiredMixin, View):
         status_choices = Instructor.STATUS_CHOICES
        
         return render(request, 'pages/quanLyGiangVienPages.html', {'instructor_list': instructor_list,'department_choices':department_choices, 'education_choices': education_choices,'position_choices':position_choices, 'status_choices':status_choices})
+      
     def post(self, request):
+        # chỉ cho phép admin thêm giảng viên
+        if not request.user.is_superuser:
+                return render(request, 'pages/message.html', {'error_messages': ['Bạn không có quyền thêm giảng viên']})
         if 'form1-submit' in request.POST:
             instructor_ID =request.POST.get('ID')
             try:
@@ -74,9 +80,8 @@ class InstructorView(LoginRequiredMixin, View):
             phone = request.POST.get('phone')
             place_of_birth = request.POST.get('placeoforigin')
             email = request.POST.get('email')
+            # choices
             department_value = request.POST.get('department')
-            
-            
             education_level = request.POST.get('education')
             job_position = request.POST.get('position')
             status = request.POST.get('status')
@@ -131,9 +136,18 @@ class InstructorView(LoginRequiredMixin, View):
                     job_position=job_position,
                     status=status
                     )
+                    
+                    # tạo tài khoản cho giảng viên
+                    instructor = Instructor.objects.get(email=email)
+
+                    username = instructor.instructorID 
+                    password = '1111'
+                    user = User.objects.create_user(username=username, email=email, password=password)
+                    user.save()
+
                     return redirect('instructor')
                 except Department.DoesNotExist:
-                    error_messages.append("Phòng ban không tồn tại.")
+                    error_messages.append("Khoa không tồn tại.")
                     return render(request, 'pages/message.html', {'error_messages': error_messages})
                 except Exception as e:
                     error_messages.append(f'Lỗi: {e}')
