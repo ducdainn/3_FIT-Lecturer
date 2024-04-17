@@ -22,7 +22,10 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="form_box">
-                        <h1 style="text-align: center;">Đăng nhập hệ thống</h1>
+                        {% comment %} <div>
+                            <h2>TEACH TRACK</h2>
+                        </div> {% endcomment %}
+                        <h1 style="text-align: center;">TEACH TRACK</h1>
                         <img src="" alt="">
                         
                         <div>
@@ -31,6 +34,7 @@
                         <div>
                             <input type="password" name="password" placeholder="Mật khẩu">
                         </div>
+                       
                         {% if error_message %}
                         <div class="error_message" >
                             <p>{{ error_message }}</p>

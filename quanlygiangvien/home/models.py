@@ -34,7 +34,6 @@ class Instructor(models.Model):
         ('FIT', 'Khoa Công nghệ Thông tin'),
         ('FEET', 'Khoa Công nghệ Điện tử'),
         ('FHRE', 'Khoa Công nghệ Nhiệt lạnh'),
-        ('FGD', 'Khoa Công nghệ may- Thời trang'),
         ('FFS', 'Khoa Khoa học Cơ bản'),
         ('FCE', 'Khoa Công nghệ Hoá học'),
         ('FPT', 'Khoa Lý luận Chính trị'),

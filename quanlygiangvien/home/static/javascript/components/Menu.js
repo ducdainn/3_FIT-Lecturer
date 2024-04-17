@@ -3,12 +3,12 @@ function MenuComponent() {
     const template = `
     <div class="box_menu_container">
         <div class="menu_body">
-            <a href="${urls.home}" id="a_home">
+            <a href="/home/" id="a_home">
                 <i class="fa-regular fa-house-heart"></i>
                 <span>Trang Chủ</span>
             </a>
 
-            <a href="${urls.instructor}" id="a_qlgv">
+            <a href="/instructor/" id="a_qlgv">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Giảng Viên</span>
             </a>
