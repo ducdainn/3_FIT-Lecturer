@@ -1,0 +1,49 @@
+{% load static %}<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/giangVienInfo.css' %}">
+    <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div id="header_component">
+            <script type="module" src="{% static 'javascript/components/Header.js' %}"></script>
+        </div>
+
+        <!-- Sidebar/Menu -->
+        <div id="sidebar_component">
+            <script type="module" src="{% static 'javascript/components/Sidebar.js' %}"></script>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Teacher Info -->
+            <div class="teacher-info">
+                <img src="{% static 'image/avatar.jpg' %}" alt="Avatar" class="avatar">
+                <div class="info">
+                    <p><strong>Tên Giảng Viên:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Trạng Thái Tài Khoản:</strong> Active</p>
+                    <p><strong>Nhắc Nhở:</strong> Bạn có một buổi học vào ngày mai.</p>
+                </div>
+            </div>
+
+            <!-- Menu -->
+            <div class="menu">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Diễn đàn</a></li>
+                    <li><a href="#">Kho tài liệu</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

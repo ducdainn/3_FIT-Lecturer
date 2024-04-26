@@ -1,5 +1,4 @@
 function MenuComponent() {
-
     const menu = document.getElementById("menu_component")
     const template = `
     <div class="box_menu_container">
