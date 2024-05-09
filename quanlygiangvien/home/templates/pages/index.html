@@ -61,8 +61,8 @@
                                 <img src="{% static 'image/icons8-phd-64.png'%}" alt="" srcset="">
                             </div>
                             <div class="nb_render">
-                                <div class="number_total">{{PhD_instructors_count}}</div>
-                                <div class="text_nb">Số giảng viên là Tiến sĩ</div>
+                                <div class="number_total">{{retired_instructors_count}}</div>
+                                <div class="text_nb">Số giảng viên nghỉ hưu</div>
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
     {% comment %} <script>
         var urls = {
             home: "{% url 'home' %}",
-            instructor: "{% url 'instructor' %}",
+            instmanage: "{% url 'instmanage' %}",
             {% comment %} studentManager: "{% url 'studentManager' %}",
             thongKe: "{% url 'thongKe' %}" {% endcomment %}
         }; 

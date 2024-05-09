@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -17,20 +18,30 @@
         </div>
 
         <!-- Sidebar/Menu -->
-        <div id="sidebar_component">
-            <script type="module" src="{% static 'javascript/components/Sidebar.js' %}"></script>
+        <div id="menu_component">
+            <!-- Insert menu items dynamically with JavaScript -->
         </div>
 
         <!-- Content -->
         <div class="content">
             <!-- Teacher Info -->
-            <div class="teacher-info">
+            <div class="instructor-id">
                 <img src="{% static 'image/avatar.jpg' %}" alt="Avatar" class="avatar">
                 <div class="info">
-                    <p><strong>Tên Giảng Viên:</strong> {{ user.username }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    <p><strong>Trạng Thái Tài Khoản:</strong> Active</p>
-                    <p><strong>Nhắc Nhở:</strong> Bạn có một buổi học vào ngày mai.</p>
+                    <h1>Thông Tin Giảng Viên</h1>
+                    <!-- Hiển thị thông tin của giảng viên -->
+                    <p><strong>Tên Giảng Viên: </strong> {{ instructor.name }}</p>
+                    <p><strong>Email: </strong> {{ instructor.email }}</p>
+                    <p><strong>Điện Thoại: </strong> {{ instructor.phone }}</p>
+                    <p><strong>Khoa : </strong> {{ instructor.department }}</p>
+                    <p><strong>Chức vụ: </strong>{{instructor.job_position}}</p>
+                    <!-- khai báo biến trạng thái tài khoản -->
+                    {% if instructor.is_active %}
+                    <p><strong>Trạng Thái: </strong> Đang hoạt động</p>
+                    {% else %}
+                    <p><strong>Trạng Thái: </strong> Đã bị khóa</p>
+                    {% endif %}
+                    <!-- <p><strong>Nhắc Nhở:</strong> Bạn có một buổi học vào ngày mai.</p> -->
                 </div>
             </div>
 
@@ -44,6 +55,8 @@
             </div>
         </div>
     </div>
+
+    <script src="{% static 'javascript/menu.js' %}"></script>
 </body>
 
 </html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Bài Đăng</title>
+    <link rel="stylesheet" href="{% static 'css/dienDan.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div id="header_component">
+            <script type="module" src="{% static 'javascript/components/Header.js' %}"></script>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1>Danh sách Bài Đăng</h1>
+            {% if articles %}
+                <ul class="article-list">
+                    {% for article in articles %}
+                        <li class="article-item">
+                            <h2>{{ article.title }}</h2>
+                            <p><strong>Tác giả:</strong> {{ article.author }}</p>
+                            <p><strong>Ngày đăng:</strong> {{ article.publish_date }}</p>
+                            <div class="image-container">
+                                <img src="{{ article.image.url }}" alt="Image">
+                            </div>
+                            <div class="content-container">
+                                <p>{{ article.content }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Không có bài đăng nào.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

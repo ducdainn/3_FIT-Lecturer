@@ -1,5 +1,5 @@
 function MenuComponent() {
-    const menu = document.getElementById("menu_component")
+    const menu = document.getElementById("menuIntructor_component")
     const template = `
     <div class="box_menu_container">
         <div class="menu_body">
@@ -13,14 +13,14 @@ function MenuComponent() {
                 <span>Giảng Viên</span>
             </a>
 
-            <a href="/articlepost/" id="a_st">
+            <a href="/article/" id="a_st">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Đăng bài</span>
             </a>
 
             <a href="/article/" id="a_tk">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Diễn đàn</span>
+                <span>Diễn đàn</span>
             </a>
 
         </div>
