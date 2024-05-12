@@ -84,10 +84,11 @@ class InstructorManagement(LoginRequiredMixin, View):
        
         return render(request, 'pages/quanLyGiangVienPages.html', {'instructor_list': instructor_list,'department_choices':department_choices, 'education_choices': education_choices,'position_choices':position_choices, 'status_choices':status_choices})
     def post(self, request):
-        if 'form1-submit' in request.POST:
+        if 'form1-submit' in request.POST or 'form1-submit' in request.FILES:
             instructor_ID =request.POST.get('ID')
             try:
                 instructor = Instructor.objects.get(instructorID=instructor_ID)
+                instructor.image = request.FILES.get('avt')
                 instructor.name = request.POST.get('name')
                 instructor.gender = request.POST.get('gender')
                 instructor.date_of_birth = request.POST.get('birthdate')
@@ -101,8 +102,8 @@ class InstructorManagement(LoginRequiredMixin, View):
                 return redirect('instmanage')
             except Instructor.DoesNotExist as e:
                 return HttpResponse('lỗi {e}')   
-        elif 'form2-submit' in request.POST:
-            avt= request.POST.get('avt')
+        elif 'form2-submit' in request.POST or 'form2-submit' in request.FILES:
+            avt= request.FILES.get('avt') 
             name = request.POST.get('name')
             gender = request.POST.get('gender')
             date_of_birth = request.POST.get('birthdate')
@@ -175,23 +176,35 @@ class ArticlePost(LoginRequiredMixin, View):
 
     def post(self, request):
         title = request.POST.get('title')
-        author_id = request.POST.get('author_id')
+        author_id = request.user.username
         author = Instructor.objects.get(instructorID=author_id)
         image = request.FILES.get('image')
         content = request.POST.get('content')
         publish_date = request.POST.get('publish_date')
         Article.objects.create(title=title, author=author, image=image, content=content, publish_date=publish_date)
-        return redirect('articlepost')
+        url_instruction = f'/article/{author_id}/' 
+        next_url = request.GET.get('next', url_instruction)
+        return redirect(next_url)
 
 class ArticleDetailView(LoginRequiredMixin, View):
     login_url = '/login/'
     
-    def get(self, request, instructor_id):
+    def get(self, request, instructor_id=None):
+        if instructor_id is None:
+            # Nếu không có instructor_id được cung cấp, chuyển hướng đến URL có instructor_id được lấy từ đầu tiên trong danh sách giảng viên
+            first_instructor = Instructor.objects.first()
+            if first_instructor:
+                return redirect('article', instructor_id=first_instructor.instructorID)
+            else:
+                return HttpResponse('Không có giảng viên nào để hiển thị bài báo.')
+        
         try:
-            articles = Article.objects.filter(author_id=instructor_id)  
+            articles = Article.objects.filter(author_id=instructor_id)
             return render(request, 'pages/dienDan.html', {'articles': articles})
         except Article.DoesNotExist:
             return HttpResponse('Không có bài báo')
         except Exception as e:
             return HttpResponse(f'Lỗi: {e}')
+
+        
 

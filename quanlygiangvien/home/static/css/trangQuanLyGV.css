@@ -83,3 +83,37 @@ body{
     background-color: #28a745; /* Màu xanh lá cây */
     color: #fff; /* Màu chữ trắng */
 }
+
+/* CSS image*/
+.image-container {
+    text-align: center; /* Canh giữa ảnh */
+}
+
+.image-container img {
+    border-radius: 50%; /* Làm cho ảnh tròn */
+    width: 300px; /* Điều chỉnh kích thước ảnh */
+    height: 300px; /* Điều chỉnh kích thước ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo khi co hoặc căng */
+}
+
+/* CSS info */
+/* .info {
+    text-align: center;
+    margin-top: 20px; 
+} */
+
+.separator {
+    width: 100%; /* Độ rộng của đường gạch ngang */
+    
+    margin: 0 auto; /* Canh giữa */
+    border-top: 1px solid #61a4e4; /* Màu sắc và kiểu của đường gạch ngang */
+    margin-top: 10px;
+}
+
+.image-post img {
+    border: 2px solid #576167;
+    width: 80%; /* Điều chỉnh kích thước ảnh */
+    height: 70%; /* Điều chỉnh kích thước ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo khi co hoặc căng */
+    
+}

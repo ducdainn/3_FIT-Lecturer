@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QLTT</title>
+    <title>Quản lý thông tin</title>
     <link rel="stylesheet" href="{% static 'css/trangchu.css'%}">
     <link rel="stylesheet" href="{% static 'css/trangQuanLyGV.css'%}">
     <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css'%}">
@@ -120,12 +120,12 @@
                                     
                                     <!-- Modal body -->
                                     <div class="modal-body p-4">
-                                        <form method="post" action="" class='form2'>
+                                        <form method="post" action="{% url 'instmanage' %}" class='form2' enctype="multipart/form-data">
                                             
                                             {% csrf_token %}
                                             <div class="mb-3 mt-3">
                                                 <label for="email">Avatar:</label>
-                                                <input type="file" class="form-control" id="avt" name="avt">
+                                                <input type="file" class="form-control" id="avt" name="avt" accept="image/*" required>
                                                 <p class="text-danger error-avt"></p>
                                             </div>
                                             <div class="mb-3">

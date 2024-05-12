@@ -10,8 +10,8 @@ class Department(models.Model):
 
     
 class Instructor(models.Model):
-    image =models.ImageField(upload_to='images/instructorAvatars/')
     instructorID = models.CharField(max_length=7, primary_key=True, editable=False)
+    image =models.ImageField(upload_to='images/instructorAvatars/') 
     name = models.CharField(max_length=100)
     GENDER_CHOICES = [
         ('M', 'Male'),
