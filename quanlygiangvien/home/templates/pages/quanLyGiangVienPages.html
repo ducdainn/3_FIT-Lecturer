@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css'%}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* CSS styling */
         figure {
@@ -55,7 +54,6 @@
                             <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
-                    
                     <div class="table_body">
 
                         <table border="0">
@@ -92,10 +90,7 @@
                                     <td>{{ instructor.education_level }}</td>
                                     <td>{{ instructor.job_position }}</td>
                                     <td>{{ instructor.status }}</td>
-                                    <td>
-                                        <button class="edit-button" data-instructor-id="{{ instructor.instructorID }}" data-bs-toggle="modal" data-bs-target="#myModal-chitiet"><i class="fas fa-pen"></i></button>
-                                        <button class="delete-button" data-instructor-id="{{ instructor.instructorID }}" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"><i class="fa-regular fa-trash"></i></button>
-                                    </td>
+                                    <td><button class="edit-button" data-instructor-id="{{ instructor.instructorID }}" data-bs-toggle="modal" data-bs-target="#myModal-chitiet"><i class="fas fa-pen"></i></button></td>
                                     
                                 </tr>
                                 {% endfor %}
@@ -107,9 +102,9 @@
 
 
 
-                        <!-- ----------------------------Form thêm giảng viên------------------------------------------------------>
+                        <!-- The Modal them giang vien-->
                         <div class="modal fade" id="myModal">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
 
                                     <!-- Modal Header -->
@@ -119,19 +114,18 @@
                                     </div>
                                     
                                     <!-- Modal body -->
-                                    <div class="modal-body p-4">
+                                    <div class="modal-body">
                                         <form method="post" action="" class='form2'>
                                             
                                             {% csrf_token %}
                                             <div class="mb-3 mt-3">
                                                 <label for="email">Avatar:</label>
                                                 <input type="file" class="form-control" id="avt" name="avt">
-                                                <p class="text-danger error-avt"></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Tên:</label>
-                                                <input type="text" class="form-control" id="name_add" placeholder="" name="name">
-                                                <p class="text-danger error-name"></p>
+                                                <input type="text" class="form-control" id="name_add" placeholder=""
+                                                    name="name">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Giới tính:</label>
@@ -142,28 +136,27 @@
                                                         <option value="F">Nữ</option>
                                                         <option value="O">Khác</option>
                                                     </select>
-                                                    <p class="text-danger error-gender"></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Ngày sinh:</label>
-                                                <input type="date" class="form-control" id="birthdate_add" placeholder="" name="birthdate">
-                                                <p class="text-danger error-birthdate"></p>
+                                                <input type="date" class="form-control" id="birthdate_add" placeholder=""
+                                                    name="birthdate">
                                             </div>
                                         
                                             <div class="mb-3">
                                                 <label for="pwd">SĐT:</label>
-                                                <input type="text" class="form-control" id="phone_add" placeholder="" name="phone">
-                                                <p class="text-danger error-phone"></p>
+                                                <input type="text" class="form-control" id="phone_add" placeholder=""
+                                                    name="phone">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Nơi sinh:</label>
-                                                <input type="text" class="form-control" id="placeoforigin_add" placeholder="" name="placeoforigin">
-                                                <p class="text-danger error-placeoforigin"></p>
+                                                <input type="text" class="form-control" id="placeoforigin_add" placeholder=""
+                                                    name="placeoforigin">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Email:</label>
-                                                <input type="email" class="form-control" id="email_add" placeholder="" name="email">
-                                                <p class="text-danger error-email"></p>
+                                                <input type="email" class="form-control" id="email_add" placeholder=""
+                                                    name="email">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pwd">Khoa:</label>
@@ -173,7 +166,6 @@
                                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select> 
-                                                <p class="text-danger error-department"></p>
                                                 
                                             </div>
                                             <div class="mb-3">
@@ -185,7 +177,6 @@
                                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select> 
-                                                <p class="text-danger error-education"></p>
                                                
                                             </div>
                                             <div class="mb-3">
@@ -196,7 +187,6 @@
                                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select> 
-                                                <p class="text-danger error-position"></p>
                                               
                                             </div>
                                             <div class="mb-3">
@@ -207,14 +197,10 @@
                                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select> 
-                                                <p class="text-danger error-status"></p>
                                             </div>
-                                           
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-danger"  name="form2-submit">Save</button>
+                                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="form2-submit">Save</button>
                                             </div>
-                                            <script type="module" src="{% static 'javascript/components/error_add_instructor.js'%}"></script>
-                                       
                                         </form>
                                     </div>
 
@@ -237,29 +223,32 @@
         </div>
     </div>
 
-    <!-- --------------------------------------------Form Xem và Chỉnh sửa giảng viên------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------------------- -->
 
     <!-- The Modal chi tiet-->
     <div class="modal fade" id="myModal-chitiet">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Thông Tin Chi Tiết</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">X</button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body px-4">
+                <div class="modal-body">
+                  
                     <form method="POST" action="" class='form1'>
+                       
+                       
                         {% csrf_token %}
                         
                         <div class="mb-3">
                             <label for="pwd">ID</label>
                             <input type="text" class="form-control" id="instructorID_edit" name="ID" readonly>
                         </div>
+                       
                         <div class="mb-3">
                             <label for="pwd">Tên</label>
                             <input type="text" class="form-control" id="name_edit" name="name">
@@ -313,7 +302,7 @@
                                 <option value="{{ choice.1 }}">{{ choice.1 }}</option>
                                 {% endfor %}
                             </select>
-                         
+                            {% comment %} <input type="text" class="form-control" id="position_edit" name="position"> {% endcomment %}
                         </div>
                         <div class="mb-3">
                             <label for="pwd">Tình trạng</label>
@@ -338,35 +327,20 @@
             </div>
         </div>
     </div>
-    <!----------------------------------------------------Thông báo xác nhận xoá giảng viên------------------------------>
-    <!-- Modal chi tiet-->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác Nhận Xoá Giảng Viên</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xoá giảng viên này không?</p>
-                    <form id="deleteForm" method="POST" class= 'delete-instructor'>
-                        {% csrf_token %}
-                        <input type="text" name="instructor_id" id="instructor_id" value="" readonly>
-                </div>
-                <div class="modal-footer">
-                    
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-danger" id="confirmDeleteButton" name="delete-instructor-submit">Xoá</button>
-                    </form>
-                    <script src="{% static 'javascript/components/delete_model.js'%}"></script> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-     
+    
+    
+    <!-- <script>
+        var urls = {
+            home: "/home",
+            instructor: "{% url 'instructor' %}",
+            {% comment %} studentManager: "{% url 'studentManager' %}",
+            thongKe: "{% url 'thongKe' %}" {% endcomment %}
+        };
+    </script> -->
+    
+
+
+
 </body>
 
 </html>

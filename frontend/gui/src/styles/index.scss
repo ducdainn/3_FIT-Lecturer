@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  font-family:
+    -apple-system,
+    Segoe UI,
+    Tahoma,
+    Geneva,
+    Verdana,
+    sans-serif !important;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body {
+  margin: 0;
+
+  background-color: #eaeaea;
+}
+
+.body_container {
+  width: 100%;
+  display: flex;
+
+  .body_page {
+    padding: 10px;
+  }
+}
+
+
+
+@import "./Login.scss";
+@import "./HeaderComponent.scss";
+@import "./MenuComponent.scss";
+@import "./HomePage.scss";
+@import "./ForumPage.scss";

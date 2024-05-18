@@ -8,12 +8,12 @@
     <title>QLTT</title>
     <link rel="stylesheet" href='{% static "css/trangchu.css"%}'>
     <link rel="stylesheet" href="{% static 'Fontawesome_v6/css/all.css'%}">
-
   
 </head>
 
 
 <body>
+    
     <div class="container">
 
         <!-- header -->
@@ -26,116 +26,88 @@
                 <script type="module" src="{% static 'javascript/components/Menu.js'%}"></script>
             </div>
             <div class="content_body">
-                    <div class="render_box_total"> 
-                        <div class="item_box">
-                            <div>
-                                <img src="{% static 'image/icons8-lecture-64 (1).png'%}" alt="" srcset="">
-                            
-                            </div>
-                            <div class="nb_render">
-                                <div class="number_total">{{instructor_count}}</div>
-                                <div class="text_nb">Tổng số Giảng viên</div>
-                            </div>
+                <div class="render_box_total">
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-people-pants-simple"></i>
                         </div>
-                        <div class="item_box">
-                            <div>
-                                <img src="{% static 'image/icons8-department-64.png'%}" alt="" srcset="">
-                            
-                            </div>
-                            <div class="nb_render">
-                                <div class="number_total">{{department_count}}</div>
-                                <div class="text_nb">Tổng số Khoa</div>
-                            </div>
-                        </div>
-                        <div class="item_box">
-                            <div>
-                                <img src="{% static 'image/icons8-training-64.png'%}" alt="" srcset="">
-                            </div>
-                            <div class="nb_render">
-                                <div class="number_total">{{teaching_instructors_count}}</div>
-                                <div class="text_nb">Số giảng viên đang dạy</div>
-                            </div>
-                        </div>
-                        <div class="item_box">
-                            <div>
-                                <img src="{% static 'image/icons8-phd-64.png'%}" alt="" srcset="">
-                            </div>
-                            <div class="nb_render">
-                                <div class="number_total">{{PhD_instructors_count}}</div>
-                                <div class="text_nb">Số giảng viên là Tiến sĩ</div>
-                            </div>
+                        <div class="nb_render">
+                            <div class="number_total">{{instructor_count}}</div>
+                            <div class="text_nb">Total Instructor</div>
                         </div>
                     </div>
-                    <div class="render_body">
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-circle-up"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{{department_count}}</div>
+                            <div class="text_nb">Total Department</div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{}</div>
+                            <div class="text_nb">Total Department</div>
+                        </div>
+                    </div>
+                    <div class="item_box">
+                        <div>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <div class="nb_render">
+                            <div class="number_total">{}</div>
+                            <div class="text_nb">Total Instructor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="render_body">
                     <h1>REPORT</h1>
-                    <canvas id="myChart" width="150" height="80"></canvas>
+                    <canvas id="myChart" width="300" height="150"></canvas>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <script>
                         const ctx = document.getElementById('myChart').getContext('2d');
-
-                        // Assume you have fetched department names and lecturer counts from Django
-                        const departmentNames = {{department_names|safe}}
-                        const statusCountsByDepartment = {{ status_counts_by_department|safe }};
-                        const uniqueStatuses = {{ unique_statuses|safe }};
-                        const STATUS_COLORS = {
-                            'Đang dạy': 'rgba(75, 192, 192, 0.2)',
-                            'Nghỉ hưu': 'rgba(255, 99, 132, 0.2)',
-                            'Nghỉ việc': 'rgba(255, 206, 86, 0.2)',
-                            'Hợp đồng': 'rgba(54, 162, 235, 0.2)',
-                            'Nghỉ phép': 'rgba(153, 102, 255, 0.2)'
-                        };
-                        const datasets = [];
-                        uniqueStatuses.forEach(status => {
-                            const data = departmentNames.map(department => statusCountsByDepartment[department][status]);
-                            const color = STATUS_COLORS[status];
-                            
-                            datasets.push({
-                                label: status,
-                                data: data,
-                                backgroundColor: color,
-                                stack: 'Stack 0' // Chia các cột thành các phần nhỏ
-                            });
-                        });
-                       
                         const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: departmentNames,
-                                datasets: datasets
+                                labels: ['Red', 'Blue', 'Yellow'],
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [12, 19, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
                             },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        stacked: true,
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }],
-                                    xAxes: [{
-                                        stacked: true
-                                    }]
-                                }
-                            }
                         });
-                    </script> 
+                    </script>
 
                 </div>
             </div>
         </div>
     </div>
- <!--
-    {% comment %} <script>
+
+    <!-- <script>
         var urls = {
             home: "{% url 'home' %}",
             instructor: "{% url 'instructor' %}",
             {% comment %} studentManager: "{% url 'studentManager' %}",
             thongKe: "{% url 'thongKe' %}" {% endcomment %}
-        }; 
-    </script>
+        };
+    </script> -->
     
--->
-
-
+  
 </body>
 
 </html>
