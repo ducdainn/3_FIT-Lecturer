@@ -13,12 +13,7 @@ function MenuComponent() {
                 <span>Giảng Viên</span>
             </a>
 
-            <a href="/articlepost/" id="a_st">
-                <i class="fa-solid fa-business-time"></i>
-                <span>Đăng bài</span>
-            </a>
-
-            <a href="/forum/" id="a_tk">
+            <a href="/forumad/" id="a_tk">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Diễn đàn</span>
             </a>

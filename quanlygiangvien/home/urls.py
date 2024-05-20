@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import HomeClass, LoginClass, InstructorManagement,InstructorDetailView, ArticlePost, ArticleDetailView, ForumDetailView
+from .views import HomeClass, LoginClass, InstructorManagement,InstructorDetailView, ArticlePost, ArticleDetailView, ForumDetailView, ForumDetailViewIns
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
@@ -12,7 +12,8 @@ urlpatterns = [
     path('instructor/<str:instructor_id>/', InstructorDetailView.as_view(), name='instructor'),
     path('articlepost/', ArticlePost.as_view(), name='articlepost'),
     path('article/<str:instructor_id>/', ArticleDetailView.as_view(), name='article'),
-    path('forum/', ForumDetailView.as_view(), name='forum'),
+    path('forumad/', ForumDetailView.as_view(), name='forumad'),
+    path('forumins/<str:instructor_id>/', ForumDetailViewIns.as_view(), name='forumins'),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

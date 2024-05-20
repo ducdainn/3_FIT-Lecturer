@@ -23,7 +23,7 @@ function MenuComponent() {
                 <span>Bài báo của bạn</span>
             </a>
 
-            <a href="/forum/" id="a_qlgv">
+            <a href="/forumins/${instructorId}/" id="a_qlgv">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Diễn đàn</span>
             </a>

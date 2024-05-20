@@ -195,21 +195,23 @@ class ArticleDetailView(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request, instructor_id):
-        if instructor_id is None:
-            # Nếu không có instructor_id được cung cấp, chuyển hướng đến URL có instructor_id được lấy từ đầu tiên trong danh sách giảng viên
-            first_instructor = Instructor.objects.first()
-            if first_instructor:
-                return redirect('article', instructor_id=first_instructor.instructorID)
-            else:
-                return HttpResponse('Không có giảng viên nào để hiển thị bài báo.')
-        
-        try:
-            articles = Article.objects.filter(author_id=instructor_id)
-            return render(request, 'pages/dienDan.html', {'articles': articles})
-        except Article.DoesNotExist:
-            return HttpResponse('Không có bài báo')
-        except Exception as e:
-            return HttpResponse(f'Lỗi: {e}')
+        if request.user.is_staff:
+            return HttpResponse('Chỉ giảng viên mới có bài báo.')
+        elif request.user.is_active:
+            
+            if instructor_id is None:
+                # Nếu không có instructor_id được cung cấp, chuyển hướng đến URL có instructor_id được lấy từ đầu tiên trong danh sách giảng viên
+                first_instructor = Instructor.objects.first()
+                if first_instructor:
+                    return redirect('article', instructor_id=first_instructor.instructorID)
+                else:
+                    return HttpResponse('Không có giảng viên nào để hiển thị bài báo.')
+            
+            try:
+                articles = Article.objects.filter(author_id=instructor_id)
+                return render(request, 'pages/dienDan.html', {'articles': articles, 'instructor_id': instructor_id})
+            except Exception as e:
+                return HttpResponse(f'Lỗi: {e}')
 
 class ForumDetailView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -217,8 +219,19 @@ class ForumDetailView(LoginRequiredMixin, View):
     # đăng tất cả bài viết trong forum
     def get(self, request):
         articles = Article.objects.all()
+
+        return render(request, 'pages/dienDanAdmin.html', {'articles': articles})
+
+
+
+class ForumDetailViewIns(LoginRequiredMixin, View):
+    login_url = '/login/'
+    
+    # đăng tất cả bài viết trong forum
+    def get(self, request, instructor_id):
+        articles = Article.objects.all()
         if not articles:
             return HttpResponse('Không có bài viết nào trong diễn đàn.')
         else:
-            return render(request, 'pages/dienDan.html', {'articles': articles})
+            return render(request, 'pages/dienDanInstructor.html', {'articles': articles, 'instructor_id': instructor_id})
 
