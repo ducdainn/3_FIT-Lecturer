@@ -24,20 +24,7 @@ function HeaderComponent() {
     `;
     header.innerHTML = '';
     header.insertAdjacentHTML("beforeend", template);
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     const userIcon = document.querySelector('.user-icon');
-    //     const userDropdown = document.getElementById('user-dropdown');
-    
-    //     // Thêm sự kiện click vào biểu tượng user
-    //     userIcon.addEventListener('click', function() {
-    //         // Hiển thị hoặc ẩn dropdown bằng cách thay đổi thuộc tính display
-    //         if (userDropdown.style.display === "block") {
-    //             userDropdown.style.display = "none";
-    //         } else {
-    //             userDropdown.style.display = "block";
-    //         }
-    //     });
-    // });
+
 }
 
 HeaderComponent();

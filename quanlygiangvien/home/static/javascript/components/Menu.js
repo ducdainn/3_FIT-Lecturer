@@ -18,7 +18,7 @@ function MenuComponent() {
                 <span>Đăng bài</span>
             </a>
 
-            <a href="/article/" id="a_tk">
+            <a href="/forum/" id="a_tk">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Diễn đàn</span>
             </a>

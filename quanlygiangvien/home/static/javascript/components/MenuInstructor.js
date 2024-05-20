@@ -1,6 +1,8 @@
 function MenuComponent() {
     const menu = document.getElementById("menuIntructor_component");
-    const instructorId = "GV00001";  // Thay thế bằng ID thực tế của giảng viên nếu có
+    // dùng id của giảng viên được truyền từ server
+    const instructorId = menu.getAttribute("data-instructor-id");
+
 
     const template = `
     <div class="box_menu_container">
@@ -18,12 +20,12 @@ function MenuComponent() {
 
             <a href="/article/${instructorId}/" id="a_tk">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Diễn đàn</span>
+                <span>Bài báo của bạn</span>
             </a>
 
-            <a href="" id="a_qlgv">
+            <a href="/forum/" id="a_qlgv">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Thông báo</span>
+                <span>Diễn đàn</span>
             </a>
 
         </div>

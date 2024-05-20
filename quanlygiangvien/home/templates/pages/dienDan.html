@@ -35,9 +35,11 @@
         </div>
 
         <div class="container_body">
-            <div id="menuIntructor_component">
+            {% for article in articles %}
+            <div id="menuIntructor_component" data-instructor-id="{{ article.author.instructorID }}">
                 <script type="module" src="{% static 'javascript/components/MenuInstructor.js'%}"></script>
             </div>
+            {% endfor %}
 
             <div class="content_body">
                  <!-- Content -->

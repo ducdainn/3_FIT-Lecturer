@@ -161,6 +161,7 @@ class InstructorDetailView(LoginRequiredMixin, View):
         try:
             instructor = Instructor.objects.get(instructorID=instructor_id)
             return render(request, 'pages/thongTinGiangVien.html', {'instructor': instructor})
+        
         except Instructor.DoesNotExist:
             return HttpResponse('Không tìm thấy giảng viên')
         except Exception as e:
@@ -171,8 +172,12 @@ class ArticlePost(LoginRequiredMixin, View):
     login_url = '/login/'
     
     def get(self, request):
-        articlepost = Article.objects.all()
-        return render(request, 'pages/baiBao.html', {'articlepost': articlepost})
+        # phân quyền chỉ có giảng viên mới đăng bài được
+        if request.user.is_staff:
+            return HttpResponse('Chỉ giảng viên mới được phép đăng bài báo.')
+        elif request.user.is_active:
+            articlepost = Article.objects.all()
+            return render(request, 'pages/baiBao.html', {'articlepost': articlepost})
 
     def post(self, request):
         title = request.POST.get('title')
@@ -188,8 +193,8 @@ class ArticlePost(LoginRequiredMixin, View):
 
 class ArticleDetailView(LoginRequiredMixin, View):
     login_url = '/login/'
-    
-    def get(self, request, instructor_id=None):
+
+    def get(self, request, instructor_id):
         if instructor_id is None:
             # Nếu không có instructor_id được cung cấp, chuyển hướng đến URL có instructor_id được lấy từ đầu tiên trong danh sách giảng viên
             first_instructor = Instructor.objects.first()
@@ -206,5 +211,14 @@ class ArticleDetailView(LoginRequiredMixin, View):
         except Exception as e:
             return HttpResponse(f'Lỗi: {e}')
 
-        
+class ForumDetailView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    
+    # đăng tất cả bài viết trong forum
+    def get(self, request):
+        articles = Article.objects.all()
+        if not articles:
+            return HttpResponse('Không có bài viết nào trong diễn đàn.')
+        else:
+            return render(request, 'pages/dienDan.html', {'articles': articles})
 

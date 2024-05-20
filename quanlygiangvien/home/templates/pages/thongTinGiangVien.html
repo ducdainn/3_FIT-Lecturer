@@ -33,13 +33,14 @@
         </div>
 
         <div class="container_body">
-            <div id="menuIntructor_component">
+            <div id="menuIntructor_component" data-instructor-id="{{ instructor.instructorID }}">
                 <script type="module" src="{% static 'javascript/components/MenuInstructor.js'%}"></script>
             </div>
 
             <div class="content_body">
 
-                <div class="instructor-id">
+                <div class="instructor-id" >
+                    
                     <div class="line_title">
                         <div class="title_hd1">Thông Tin Giảng Viên</div>
                     </div>
@@ -50,7 +51,10 @@
                     <div class="separator"></div> <!-- Đường gạch ngang -->
                     <div class="info">
                         <!-- Hiển thị thông tin của giảng viên -->
+                        <p><strong>Mã Giảng Viên: </strong> {{ instructor.instructorID }}</p>
                         <p><strong>Tên Giảng Viên: </strong> {{ instructor.name }}</p>
+                        <p><strong>Giới Tính: </strong> {{ instructor.gender }}</p>
+                        <p><strong>Ngày Sinh: </strong> {{ instructor.date_of_birth }}</p>
                         <p><strong>Email: </strong> {{ instructor.email }}</p>
                         <p><strong>Điện Thoại: </strong> {{ instructor.phone }}</p>
                         <p><strong>Khoa : </strong> {{ instructor.department }}</p>
