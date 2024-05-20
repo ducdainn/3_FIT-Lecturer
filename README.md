@@ -52,10 +52,10 @@
    python manage.py runserver
    ```
 
-   This will start the development server at `http://127.0.0.1:8000/`.
+   This will start the development server at `http://127.0.0.1:8000/login/`.
 
 6. **Access the Application:**
 
-   Open your web browser and navigate to `http://127.0.0.1:8000/` to access the application.
+   Open your web browser and navigate to `http://127.0.0.1:8000/login/` to access the application.
 
 Feel free to adjust these steps according to your project's requirements and configurations.
