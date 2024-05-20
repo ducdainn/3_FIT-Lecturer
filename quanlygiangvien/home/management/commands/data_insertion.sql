@@ -1,4 +1,4 @@
-TRUNCATE TABLE home_department;
+-- TRUNCATE TABLE home_department;
 INSERT INTO home_department (departmentID, name) VALUES
 ('FME', 'Khoa Công nghệ Cơ khí'),
 ('FIT', 'Khoa Công nghệ Thông tin'),

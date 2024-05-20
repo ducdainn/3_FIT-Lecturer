@@ -49,7 +49,7 @@ body{
 .table_body td{
     text-align: center;
     font-size: 14px;
-    padding: 15px 5px;
+    padding: 15px 7px ;
     border: 1px solid #7a7a7a;
 }
 
@@ -60,11 +60,11 @@ body{
     border: none;
     color: #fff;
     border-radius: 5px;
-    margin: 0px 10px;
+    margin: 0px 3px;
     cursor: pointer;
 }
 .line_title  button{
-    padding:5px 10px;
+    padding:5px 5px;
     background: #2180F8;
     border: none;
     color: #fff;
@@ -73,6 +73,47 @@ body{
     cursor: pointer;
     margin: 35px 0px;
 }
-#btn_delete{
-    background-color: #bc1b1b;
+.delete-button {
+    color: white; /* Chỉnh màu chữ thành trắng */
+    background-color: #dc3545; /* Chỉnh màu nền thành màu đỏ */
+    border-color: #dc3545; /* Chỉnh màu viền thành màu đỏ (nếu cần) */
+}
+
+.save-button {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: #fff; /* Màu chữ trắng */
+}
+
+/* CSS image*/
+.image-container {
+    text-align: center; /* Canh giữa ảnh */
+}
+
+.image-container img {
+    border-radius: 50%; /* Làm cho ảnh tròn */
+    width: 300px; /* Điều chỉnh kích thước ảnh */
+    height: 300px; /* Điều chỉnh kích thước ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo khi co hoặc căng */
+}
+
+/* CSS info */
+/* .info {
+    text-align: center;
+    margin-top: 20px; 
+} */
+
+.separator {
+    width: 100%; /* Độ rộng của đường gạch ngang */
+    
+    margin: 0 auto; /* Canh giữa */
+    border-top: 1px solid #61a4e4; /* Màu sắc và kiểu của đường gạch ngang */
+    margin-top: 10px;
+}
+
+.image-post img {
+    border: 2px solid #576167;
+    width: 80%; /* Điều chỉnh kích thước ảnh */
+    height: 70%; /* Điều chỉnh kích thước ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo khi co hoặc căng */
+    
 }

@@ -1,5 +1,4 @@
 function MenuComponent() {
-
     const menu = document.getElementById("menu_component")
     const template = `
     <div class="box_menu_container">
@@ -9,19 +8,19 @@ function MenuComponent() {
                 <span>Trang Chủ</span>
             </a>
 
-            <a href="/instructor/" id="a_qlgv">
+            <a href="/instmanage/" id="a_qlgv">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Giảng Viên</span>
             </a>
 
-            <a href="" id="a_st">
+            <a href="/articlepost/" id="a_st">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Giới thiệu về Khoa</span>
+                <span>Đăng bài</span>
             </a>
 
-            <a href="" id="a_tk">
+            <a href="/article/" id="a_tk">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Diễn đàn</span>
+                <span>Diễn đàn</span>
             </a>
 
         </div>

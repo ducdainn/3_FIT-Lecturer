@@ -2,7 +2,7 @@ from django.db import models
 import random
 
 class Department(models.Model):
-    departmentID = models.CharField(max_length=5, unique=True)
+    departmentID = models.CharField(max_length=5, primary_key=True, unique=True, editable=False)
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -10,8 +10,8 @@ class Department(models.Model):
 
     
 class Instructor(models.Model):
-    image =models.ImageField(upload_to='images/')
     instructorID = models.CharField(max_length=7, primary_key=True, editable=False)
+    image =models.ImageField(upload_to='images/instructorAvatars/') 
     name = models.CharField(max_length=100)
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -34,15 +34,15 @@ class Instructor(models.Model):
         ('FIT', 'Khoa Công nghệ Thông tin'),
         ('FEET', 'Khoa Công nghệ Điện tử'),
         ('FHRE', 'Khoa Công nghệ Nhiệt lạnh'),
-        ('FGD', 'Khoa Công nghệ may- Thời trang'),
         ('FFS', 'Khoa Khoa học Cơ bản'),
         ('FCE', 'Khoa Công nghệ Hoá học'),
+        ('FGD', 'Khoa Công nghệ may- Thời trang'),
         ('FPT', 'Khoa Lý luận Chính trị'),
         ('FFL', 'Khoa Ngoại ngữ'),
         ('FBA', 'Khoa Quản trị Kinh doanh'),
         ('FCT', 'Khoa Thương mại- Du lịch'),
         ('LF', 'Khoa Luật'),
-        # Thêm các lựa chọn khác tùy theo nhu cầu của bạn
+        # More
     ]
     STATUS_CHOICES = [
         ('Đang dạy', "Đang dạy"),
@@ -83,4 +83,30 @@ class Instructor(models.Model):
 
     def __str__(self):
         return self.name
+    
+# bài báo
+class Article(models.Model):
+    articleID = models.CharField(max_length=7, primary_key=True, editable=False)
+    title = models.CharField(max_length=100)
+    author = models.ForeignKey('Instructor', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/articleImg/')
+    content = models.TextField()
+    publish_date = models.DateField(auto_now=True)
+    def save(self, *args, **kwargs):
+        if not self.articleID:
+            self.articleID = self.generate_articleID()
+        super().save(*args, **kwargs)
+    @staticmethod
+    def generate_articleID():
+        prefix = "AR"
+        count = Article.objects.count()
+        if count == 0:
+            return f"{prefix}00001"
 
+        next_id = f"{prefix}{count+1:05}"
+        while Article.objects.filter(articleID=next_id).exists():
+            count += 1
+            next_id = f"{prefix}{count+1:05}"
+        return next_id
+    def __str__(self):
+        return self.title
