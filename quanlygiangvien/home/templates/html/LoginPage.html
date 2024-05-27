@@ -1,0 +1,62 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+</head>
+<body>
+    <div class='container_login'>
+        <img src="{% static 'assets/images/bgr.jpg'%}" alt="anh" class='img_bgr' />
+        <div class='ctn_line_flex_box'>
+            <div class='text_hello'>
+                <div class='img_logo'>
+                    <img src="{% static 'assets/images/logo.png'%}" alt="logo" />
+                </div>
+                <div class='box_tex_bt'>
+                    <div>WECOME !</div>
+                    <div>HỆ THỐNG QUẢN LÝ GIẢNG VIÊN</div>
+                    <div>You only live once, but if you do it right, once is enough</div>
+                </div>
+            </div>
+            <div class="box_login">
+                <div class='text_heading'>ĐĂNG NHẬP</div>
+                <div class='box_form_login'>
+                    <form id="loginForm" method = "post">
+                        {% csrf_token %}
+                        <div class='group_form'>
+                            <input type="text" name="username" placeholder='MA GIANG VIEN'>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class='group_form'>
+                            <input type="password" name="password" placeholder='MAT KHAU'>
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <!-- <div class='group_form set_line'>
+                            <Link to="#" class='fg_pass'>Quên mật khẩu!</Link>
+                        </div> -->
+                        <div class='group_form'>
+                            <button class='btn_login' type="submit" onclick="openModal()">ĐĂNG NHẬP</button>
+                        </div>
+                        {% comment %} <script src="{% static 'javascript/login.js'%}"></script>  {% endcomment %}
+                    </form>
+                    
+                </div>
+            </div>
+            <!-- Thêm modal vào HTML -->
+
+        </div>
+    </div>
+    <script>
+        // Mở modal và hiển thị thông báo
+        // Thay đổi hàm openModal()
+
+
+
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <link rel="stylesheet" href="{% static 'css/InstructorInfo.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div class='header_container'>
+        <div class='logo_image'>
+            <a href="/instructor/{{ user.username }}/"><img src="{% static 'assets/images/logo.png'%}" alt="logo" /></a>
+        </div>
+        <div class='right_line_header'>
+            <div class="render_role">
+                {% if user.is_staff %}
+                    ADMIN
+                {% else %}
+                    GIẢNG VIÊN
+                {% endif %}
+            </div>
+
+            <div class='account_dropdown ' id="account_dropdown" onclick="toggleDropdown()">
+                <img src="{{ instructor.image.url }}" alt="avatar" class='avt_df' />
+                <div class='name_user_header'>
+                    <div> {{instructor.name}}</div>
+                    <div>MGV: {{user.username}}</div>
+                </div>
+            </div>
+
+            <div class="box_drop_account unactive_drop_box" id="box_drop_account">
+                <div class='item_select_acc' onclick={handleLogout}>
+                    <!-- <MdLogout /> -->
+                    <a href="{%url 'login'%}" id="logoutLink"> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'javascript/HeaderComponent.js'%}"></script>
+
+
+    <div class="body_container">
+        <div id="menuContainer" data-instructor-id="{{ instructor.instructorID }}">
+            <script src="{% static 'javascript/MenuComponentGV.js'%}"></script>
+        </div>
+                    <div class="content_body">
+
+                        <div class="instructor-id" >
+                            
+                            <div class="line_title">
+                                <div class="title_hd1">Thông Tin Giảng Viên</div>
+                            </div>
+                        </div>
+                            <div class="image-container">
+                                <img src="{{ instructor.image.url }}" alt="Avatar">
+                            </div>
+                            <div class="separator"></div> <!-- Đường gạch ngang -->
+                            <div class="info">
+                                <!-- Hiển thị thông tin của giảng viên -->
+                                <p><strong>Mã Giảng Viên: </strong> {{ instructor.instructorID }}</p>
+                                <p><strong>Tên Giảng Viên: </strong> {{ instructor.name }}</p>
+                                <p><strong>Giới Tính: </strong> {{ instructor.gender }}</p>
+                                <p><strong>Ngày Sinh: </strong> {{ instructor.date_of_birth }}</p>
+                                <p><strong>Email: </strong> {{ instructor.email }}</p>
+                                <p><strong>Điện Thoại: </strong> {{ instructor.phone }}</p>
+                                <p><strong>Khoa : </strong> {{ instructor.department.name }}</p>
+                                <p><strong>Chức vụ: </strong>{{instructor.job_position}}</p>
+                                <p><strong>Trạng thái: </strong> {{ instructor.status }}</p>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    
+       
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

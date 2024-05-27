@@ -1,0 +1,470 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div>
+
+        <div class='header_container'>
+            <div class='logo_image'>
+                <a href="/"><img src="{% static 'assets/images/logo.png'%}" alt="logo" /></a>
+              
+            </div>
+            <div class='right_line_header'>
+                <div class="render_role">
+                    {% if user.is_staff %}
+                    ADMIN
+                    {% else %}
+                    GIẢNG VIÊN
+                    {% endif %}
+                </div>
+
+
+                <div class='account_dropdown ' id="account_dropdown" onclick="toggleDropdown()">
+                    <img src="{% static 'assets/images/avt_df.jpg'%}" alt="defaut_avata" class='avt_df' />
+                    <div class='name_user_header'>
+                        <div style="line-height: 40px;">  ADMIN</div>
+                    </div>
+                </div>
+                <div class="box_drop_account unactive_drop_box" id="box_drop_account">
+                    
+                    <div class='item_select_acc' onclick={handleLogout}>
+                        <!-- <MdLogout /> -->
+                        <a href="{%url 'login'%}" id="logoutLink"> Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'javascript/HeaderComponent.js'%}"></script>
+
+
+        <div class="body_container">
+            <div id="menuContainer"></div>
+            {% if user.is_staff %}
+            <script src="{% static 'javascript/MenuComponent.js'%}"></script>
+                    {% else %}
+                    <script src="{% static 'javascript/MenuComponentGV.js'%}"></script>
+                    {% endif %}
+                
+
+            <div class="body_page" style="width: calc( 100% - 250px )">
+                <div id="total_line">
+                    <div class="container_numberTotal">
+                        <div class="item_total_number" key="0">
+                            <div>
+                                <span><i class='fa-solid fa-people-simple'></i></span>
+                            </div>
+                            <div>
+                                <div class="text_total">Tổng số giảng viên</div>
+                                <div class="number_total">{{instructor_count}}</div>
+                            </div>
+                        </div>
+                        <div class="item_total_number" key="1">
+                            <div>
+                                <span><i class='fa-solid fa-toilets-portable'></i></span>
+                            </div>
+                            <div>
+                                <div class="text_total">Tổng số bài viết</div>
+                                <div class="number_total">{{instructor_count}}</div>
+                            </div>
+                        </div>
+                        <div class="item_total_number" key="2">
+                            <div>
+                                <span><i class='fa-solid fa-toilets-portable'></i></span>
+                            </div>
+                            <div>
+                                <div class="text_total">Tổng số khoa</div>
+                                <div class="number_total">{{department_count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ----------------------- -->
+
+                <div class='container_mg'>
+                    <div class='text_mg'>Quản lý giảng viên</div>
+                    <div class='body_table'>
+                        <div class="col text-right">
+                            <button class="btn btn-primary" id="addInstructorButton" data-toggle="modal" data-target="#addInstructorModal">Thêm Giảng Viên</button>
+                        </div> 
+                        <div class='table_container'>
+                            <table>
+                                <thead>
+                                    <tr class='header_tb'>
+                                        <td>STT</td>
+                                        <td>AVATAR</td>
+                                        <td>HỌ TÊN</td>
+                                        <td>Khoa</td>
+                                        <td>TRẠNG THÁI</td>
+                                        <td style="text-align:right;font-weight: 700;">ACTION</td>
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                   
+                                    {% for instructor in instructor_list %}
+                                    
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td data-image-url="{{ instructor.image }}">
+                                            <img src="{{ instructor.image }}" alt="Avatar" class="avatar">
+                                        </td>
+                                        <td>{{ instructor.name }}</td>
+                                        <td>{{ instructor.department.name }}</td>
+                                        <td>{{ instructor.status }}</td>
+                                        <td style="display:none;">{{ instructor.gender }}</td>
+                                        <td style="display:none;">{{ instructor.date_of_birth|date:"Y-m-d" }}</td>
+                                        <td style="display:none;">{{ instructor.phone }}</td>
+                                        <td style="display:none;">{{ instructor.place_of_birth }}</td>
+                                        <td style="display:none;">{{ instructor.email }}</td>
+                                        <td style="display:none;">{{ instructor.education_level }}</td>
+                                        <td style="display:none;">{{ instructor.job_position }}</td>
+                                        <td style="display:none;">{{ instructor.department }}</td>
+                                        <td style="text-align: right;">
+                                            <button id="btn_upd" class="btn_act btn_upd" data-instructor-id="{{ instructor.instructorID }}" data-toggle="modal" data-target="#exampleModal">Sửa</button>
+                                            <button id="btn_del" class="btn_act btn_del" data-instructor-id="{{ instructor.instructorID }}" data-toggle="modal" data-target="#deleteConfirmationModal">Xoá</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+   
+
+<!-- Modal Thêm giảng viên -->
+<div class="modal fade" id="addInstructorModal" tabindex="-1" role="dialog" aria-labelledby="addInstructorLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">THÊM GIẢNG VIÊN 
+                    <h5 id="ouputMGV" class="modal-title"></h5> 
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="" class='form2' enctype="multipart/form-data">
+                <div class="modal-body" id="modalContent">
+                    {% csrf_token %}
+                    
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">AVATAR</span>
+                        </div>
+                        {% comment %} <img id="avt_preview" src="#" alt="Avatar Preview" style="width: 100px; height: 100px;"> {% endcomment %}
+                        <input type="file" class="form-control" id="avt_add" accept="image/*" name="avt"  required>
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">TÊN GIẢNG VIÊN</span>
+                        </div>
+                        <input type="text" class="form-control" id="name_add" placeholder="Vui lòng nhập tên giảng viên" name="name">
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">GIỚI TÍNH</span>
+                        </div>
+                        <select class="form-control" id="gender_add" name="gender">
+                            <option value="" >Chọn giới tính</option>
+                            <option value="M">Nam</option>
+                            <option value="F">Nữ</option>
+                            <option value="O">Khác</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">NGÀY SINH</span>
+                        </div>
+                        <input type="date" class="form-control" id="birthdate_add" placeholder="" name="birthdate">
+                                
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">SĐT</span>
+                        </div>
+                        <input type="text" class="form-control" id="phonenumber_add" placeholder="Vui lòng nhập số điện thoại" name="phone">
+                    
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">NƠI SINH</span>
+                        </div>
+                        <input type="text" class="form-control" id="placeoforigin_add" placeholder="Vui lòng nhập nơi sinh" name="placeoforigin">
+                    
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">EMAIL</span>
+                        </div>
+                        <input type="email" class="form-control" id="email_add" placeholder="Vui lòng nhập email" name="email">
+                    </div>
+                    
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">KHOA</span>
+                        </div>
+                        <select class="form-control" id="department_add" name="department">
+                            <option value="" >Chọn khoa</option>
+                            {% for choice in department_choices %}
+                            <option value="{{ choice.departmentID }}">{{ choice.name }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">HỌC VỊ</span>
+                        </div>
+                        <select class="form-control" id="education_add" name="education">
+                            <option value="" >Chọn học vị</option>
+                            {% for choice in education_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">CHỨC VỤ</span>
+                        </div>
+                        <select class="form-control" id="position_add" name="position">
+                            <option value="" >Chọn chức vụ</option>
+                            {% for choice in position_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">TÌNH TRẠNG</span>
+                        </div>
+                        <select class="form-control" id="status_add" name="status">
+                            <option value="" >Chọn tình trạng</option>
+                            {% for choice in status_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="form2-submit">Save changes</button>
+                </div>
+                <script src="{% static 'javascript/ManagerHome.js'%}"></script>
+            </form>
+        </div>  
+    </div>
+</div>
+
+
+ <!-- Modal Chỉnh sửa giảng viên-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">THÔNG TIN CHI TIẾT GIẢNG VIÊN 
+                    <h5 id="ouputMGV" class="modal-title"></h5>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="" class='form' enctype="multipart/form-data">
+                <div class="modal-body" id="modalContent">
+                    {% csrf_token %}
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">ID</span>
+                        </div>
+                        <input type="text" class="form-control" id="instructorID_edit" name="ID" readonly>
+                    </div>
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">AVATAR</span>
+                        </div>
+                        <img id="avt_preview" src="" alt="Avatar Preview" style="width: 100px; height: 100px;">
+                        <input type="file" class="form-control" id="avt_edit" accept="image/*" name="avt">
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">TÊN GIẢNG VIÊN</span>
+                        </div>
+                        <input type="text" class="form-control" id="name_edit" placeholder="" name="name">
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">GIỚI TÍNH</span>
+                        </div>
+                        <select class="form-control" id="gender_edit" name="gender">
+                            <option value="" >Chọn giới tính</option>
+                            <option value="M">Nam</option>
+                            <option value="F">Nữ</option>
+                            <option value="O">Khác</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">NGÀY SINH</span>
+                        </div>
+                        <input type="date" class="form-control" id="birthdate_edit" placeholder="" name="birthdate">
+                                
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">SĐT</span>
+                        </div>
+                        <input type="text" class="form-control" id="phonenumber_edit" placeholder="" name="phone">
+                    
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">NƠI SINH</span>
+                        </div>
+                        <input type="text" class="form-control" id="placeoforigin_edit" placeholder="" name="placeoforigin">
+                    
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">EMAIL</span>
+                        </div>
+                        <input type="email" class="form-control" id="email_edit" placeholder="" name="email">
+                    </div>
+                    
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">KHOA</span>
+                        </div>
+                        <select class="form-control" id="department_edit" name="department">
+                            <option value="" >Chọn khoa</option>
+                            {% for choice in department_choices %}
+                            <option value="{{ choice.departmentID }}">{{ choice.name }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">HỌC VỊ</span>
+                        </div>
+                        <select class="form-control" id="education_edit" name="education">
+                            <option value="" >Chọn học vị</option>
+                            {% for choice in education_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">CHỨC VỤ</span>
+                        </div>
+                        <select class="form-control" id="position_edit" name="position">
+                            <option value="" >Chọn chức vụ</option>
+                            {% for choice in position_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                    <div class="input-group  mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">TÌNH TRẠNG</span>
+                        </div>
+                        <select class="form-control" id="status_edit" name="status">
+                            <option value="" >Chọn tình trạng</option>
+                            {% for choice in status_choices %}
+                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select> 
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="form-submit">Save changes</button>
+                </div>
+                <script src="{% static 'javascript/ManagerHome.js'%}"></script>
+            </form>
+        </div>  
+    </div>
+</div>
+
+<!-- Modal Xoá giảng viên -->
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">XÁC NHẬN XOÁ GIẢNG VIÊN</h5>
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close">X</button>
+
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xoá giảng viên này không?</p>
+                
+                <form id="deleteForm" method="POST" class= 'delete-instructor'>
+                    {% csrf_token %}
+                    <input type="hidden" name="instructor_id" id="instructor_id" value="" readonly>
+
+            </div>
+            <div class="modal-footer">
+                
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteButton" name="delete-instructor-submit">Xoá</button>
+                    <script src="{% static 'javascript/ManagerHome.js'%}"></script> 
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+</body>
+
+</html>

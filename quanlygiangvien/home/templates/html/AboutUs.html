@@ -1,0 +1,98 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <link rel="stylesheet" href="{% static 'css/AboutPage.css'%}"> 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class='header_container'>
+        <div class='logo_image'>
+            <a href="/home/"><img src="{% static 'assets/images/logo.png'%}" alt="logo" /></a>
+        </div>
+        <div class='right_line_header'>
+            <div class="render_role">
+                {% if user.is_staff %}
+                    ADMIN
+                {% else %}
+                    GIẢNG VIÊN
+                {% endif %}
+            </div>
+
+
+            <div class='account_dropdown ' id="account_dropdown" onclick="toggleDropdown()">
+                <img src="{% static 'assets/images/avt_df.jpg'%}" alt="defaut_avata" class='avt_df' />
+                <div class='name_user_header'>
+                    {% if user.is_staff %}
+                        <div style="line-height: 36px;">  ADMIN</div>
+                        {% endif %}
+                </div>
+            </div>
+            <div class="box_drop_account unactive_drop_box" id="box_drop_account">
+                <div class='item_select_acc' onclick={handleLogout}>
+                    <!-- <MdLogout /> -->
+                    <a href="{%url 'login'%}" id="logoutLink"> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'javascript/HeaderComponent.js'%}"></script>
+
+
+    <div class="body_container">
+        <div id="menuContainer"></div>
+        {% if user.is_staff %}
+            <script src="{% static 'javascript/MenuComponent.js'%}"></script>
+                    {% else %}
+                    <script src="{% static 'javascript/MenuComponentGV.js'%}"></script>
+                    {% endif %}
+
+        <div class="body_page" style="width: calc( 100% - 250px )">
+
+            <div class="cont_us">
+                <div class="all_bt">
+                    <div class="bt1">
+                        <div>
+                            <h1>VỀ CHÚNG TÔI</h1>
+                            <p>
+                                Chúng mình là nhóm sinh viên đến từ Đại học<br> Công nghiệp, với ấp ủ được thiết kế 1 website <br>quản lý thông tin các giảng viên. <br>Quan trọng nhất là qua môn Phát Triển Ứng <br>
+                                Dụng với điểm số cao nhất.
+                                
+                            </p>
+                        </div>
+    
+                    </div>
+                    <div class="bt2">
+                        <img src="{% static 'assets/images/us.jpg'%}" alt="image" srcset="">
+                    </div>
+                </div>
+                <div class="ft">
+                    <h4>CONTACT</h4>
+                    <p><strong>Email: </strong><a href="mailto:quyentykietducsupport@gmail.com">quyentykietducsupport@gmail.com</a></p>
+                    <p><strong>PhoneNumber: </strong>0912312313</p>
+                </div>
+            </div>
+    
+            <div class="ck_ac">
+    
+            </div>
+    
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

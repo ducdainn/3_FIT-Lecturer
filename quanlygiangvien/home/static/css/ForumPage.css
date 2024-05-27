@@ -1,0 +1,130 @@
+.container_forum {
+    width: 100%;
+}
+
+.container_forum .td_heading {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* padding: 20px; */
+.container_forum .ctn_create_forum {
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px 0;
+    margin-top: 0;
+}
+
+.container_forum .ctn_create_forum .btn_create_forum {
+    padding: 15px;
+    background-color: #0a8bf7;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.4s;
+}
+
+.container_forum .ctn_create_forum .btn_create_forum:hover {
+    background-color: #1665a7;
+}
+
+.item_forum {
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.item_forum .img_forum img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    border: 2px solid #919090;
+}
+
+.item_forum .flex_column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.item_forum .flex_column .text_post {
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #000;
+}
+
+.item_forum .flex_column .line_hashtag {
+    display: flex;
+}
+
+.item_forum .flex_column .line_hashtag>a {
+    padding: 5px;
+    border: 1px solid #1665a7;
+    border-radius: 5px;
+    font-size: 10px;
+    width: max-content;
+    margin: 5px;
+    text-decoration: none;
+}
+
+.item_forum .flex_column .line_author {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.content_body {
+    width: 100%;
+    padding: 20px;
+    padding-left: 220px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.article-list {
+    list-style: none;
+    padding: 0;
+}
+
+.article-item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.article-item h2 {
+    margin-top: 0;
+} 
+
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content-container {
+    margin-top: 10px;
+}
+

@@ -1,0 +1,175 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class='header_container'>
+        <div class='logo_image'>
+            <a href="/instructor/{{ user.username }}/"><img src="{% static 'assets/images/logo.png'%}" alt="logo" /></a>
+        </div>
+        <div class='right_line_header'>
+            <div class="render_role">
+                {% if user.is_staff %}
+                    ADMIN
+                {% else %}
+                    GIẢNG VIÊN
+                {% endif %}
+            </div>
+
+
+            <div class='account_dropdown ' id="account_dropdown" onclick="toggleDropdown()">
+                <img src="{{ instructor.image.url }}" alt="avatar" class='avt_df' />
+                <div class='name_user_header'>
+                    <div> {{instructor.name}}</div>
+                    <div>MGV: {{user.username}}</div>
+                </div>
+            </div>
+
+            <div class="box_drop_account unactive_drop_box" id="box_drop_account">
+                <div class='item_select_acc' onclick={handleLogout}>
+                    <!-- <MdLogout /> -->
+                    <a href="{%url 'login'%}" id="logoutLink"> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'javascript/HeaderComponent.js'%}"></script>
+
+
+    <div class="body_container">
+        <div id="menuContainer" data-instructor-id="{{ instructor.instructorID }}">
+            <script src="{% static 'javascript/MenuComponentGV.js'%}"></script>
+        </div>
+
+        <div class="body_page" style="width: calc( 100% - 250px )">
+
+            <div class="container_forum" id="container_forum">
+                {% if user.is_staff %}
+                <div> </div>
+                {% else %}
+                <div class='ctn_create_forum'>
+                    <div class='btn_create_forum' data-toggle="modal" data-target="#createPostModal">Tạo bài viết trên forum</div>
+                </div>
+                {% endif %}
+                <!-- CreateForum component -->
+                <div class='td_heading'>BÀI VIẾT CỦA TÔI</div>
+                <!-- Bài viết mẫu -->
+                {% if articles %}
+                {% for article in articles %}
+                <div class="item_forum">
+                    {% if article.image %}
+                    <div class="img_forum" data-image-url="{{ article.image.url }}">
+                        <img src="{{ article.image.url }}" alt="image" class="image">
+                    </div>
+                    {% endif %}
+                    <div class="flex_column">
+                        <a class="text_post" href="{{ article.articleID }}">{{ article.title }}</a>
+                        <div class="line_author">
+                            <div>
+                                <p><strong>Đăng bởi:</strong> {{ article.author.name }}</p>
+                            </div>
+                            <div>
+                                <p><strong>Ngày đăng:</strong> {{ article.publish_date }}</p>
+                                <!-- <td style="text-align: right;">
+                                <button id="btn_del_post" class="btn_act btn_del" data-article-id="{{ article.articleID }}" ationdata-toggle="modal" data-target="#deletePostConfirmationModal">Xoá</button>
+                            </td> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="item_forum">
+                    
+                    <div class="flex_column">
+                        <p>Hiện không có bài viết !!</p>
+                    
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+            {% comment %} <script src="{% static 'javascript/ForumPage.js'%}"></script> {% endcomment %}
+            
+        </div>
+    </div>
+     <!-- Modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createPostModalLabel">Đăng bài viết của bạn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'articlepost' %}" enctype="multipart/form-data" id="postForm">
+                        {% csrf_token %}
+                        <label for="title">Tiêu Đề:</label>
+                        <input type="text" id="title" name="title" class="form-control" required>
+
+                        <label for="content">Nội Dung:</label>
+                        <textarea id="content" name="content" class="form-control" rows="10" required></textarea>
+
+                        <label for="fileUpload">Tải Lên Bài Viết (PDF hoặc DOC):</label>
+                        <input type="file" id="fileUpload" name="fileUpload" class="form-control-file" accept=".pdf, .doc, .docx">
+
+                        <label for="imageUpload">Tải Lên Hình Ảnh:</label>
+                        <input type="file" id="imageUpload" name="imageUpload" class="form-control-file" accept="image/*">
+
+                        <button type="submit" class="btn btn-primary mt-3" name='create-submit'>Đăng Bài</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletePostConfirmationModal" tabindex="-1" aria-labelledby="deletePostConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePostConfirmationModalLabel">XÁC NHẬN XOÁ BÀI VIẾT</h5>
+                    <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close">X</button>
+    
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xoá bài viết này không?</p>
+                    
+                    <form id="deleteForm" method="POST" class= 'delete-article'>
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" id="post_id" value="" readonly>
+    
+                </div>
+                <div class="modal-footer">
+                    
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-danger" id="confirmDeleteButton" name="delete-article-submit">Xoá</button>
+                        <script src="{% static 'javascript/ManagerHome.js'%}"></script> 
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+    
+</body>
+
+</html>

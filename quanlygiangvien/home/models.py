@@ -89,7 +89,8 @@ class Article(models.Model):
     articleID = models.CharField(max_length=7, primary_key=True, editable=False)
     title = models.CharField(max_length=100)
     author = models.ForeignKey('Instructor', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/articleImg/')
+    image = models.ImageField(upload_to='images/articleImg/', blank=True, null=True)
+    upload_file = models.FileField(upload_to='files/', blank=True, null=True)  
     content = models.TextField()
     publish_date = models.DateField(auto_now=True)
     def save(self, *args, **kwargs):

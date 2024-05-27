@@ -1,0 +1,138 @@
+.container_numberTotal {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.container_numberTotal .item_total_number {
+    display: flex;
+}
+
+.container_numberTotal .item_total_number i {
+    font-size: 35px;
+    margin-right: 20px;
+    color: #c0c0c0;
+    margin-top: 20px;
+}
+
+.container_numberTotal .item_total_number .text_total {
+    font-size: 20px;
+    color: #928d8d;
+    font-weight: 600;
+}
+
+.container_numberTotal .item_total_number .number_total {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 5px;
+    color: #0e293f;
+    animation: an_total 0.3s forwards;
+}
+
+@keyframes an_total {
+    from {
+        line-height: 50px;
+    }
+
+    to {
+        line-height: 30px;
+    }
+}
+
+
+
+.container_mg {
+    margin-top: 10px;
+}
+
+.container_mg .text_mg {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.container_mg .body_table {
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.container_mg .body_table .table_container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.container_mg .body_table .table_container .header_tb {
+    font-size: 16px;
+    color: #a19e9e;
+}
+
+.container_mg .body_table .table_container .header_tb td {
+    padding: 10px 0;
+}
+
+.container_mg .body_table .table_container tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+
+.container_mg .body_table .table_container tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+.container_mg .body_table .table_container tbody tr {
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.4s;
+    font-weight: 500;
+}
+
+.container_mg .body_table .table_container tbody tr:hover {
+    background-color: #e6e6e6;
+}
+
+.container_mg .body_table .table_container tbody td {
+    padding: 5px 0;
+    border: none;
+    margin: 10px 0;
+}
+
+.container_mg .body_table .table_container tbody .nl {
+    color: rgb(231, 76, 76);
+}
+
+.container_mg .body_table .table_container tbody .dl {
+    color: rgb(42, 133, 42);
+}
+
+.container_mg .body_table .table_container tbody img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.container_mg .body_table .table_container tbody .btn_act {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin: 0 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.container_mg .body_table .table_container tbody .btn_act i {
+    font-size: 18px;
+}
+
+.container_mg .body_table .table_container tbody .btn_upd {
+    background-color: #1468ad;
+}
+
+.container_mg .body_table .table_container tbody .btn_del {
+    background-color: rgb(190, 26, 26);
+}
+
